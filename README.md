@@ -37,12 +37,12 @@ To use the Google Calendar API, you need to create a project on Google Cloud Pla
 1.  **Create a GCP Project:** Go to the [Google Cloud Console](https://console.cloud.google.com/) and create a new project.
 2.  **Enable API:** In your new project, navigate to "APIs & Services" > "Library" and enable the **Google Calendar API**.
 3.  **Create OAuth 2.0 Client ID:**
-    -   Go to "APIs & Services" > "Credentials".
-    -   Click "+ CREATE CREDENTIALS" and select "OAuth 2.0 Client ID".
-    -   For "Application type", choose **Web application**.
-    -   Under "Authorized JavaScript origins", add `http://localhost:3000`.
-    -   Under "Authorized redirect URIs", add `http://localhost:3000/api/auth/callback/google`.
-    -   Click "CREATE" and copy the **Client ID** and **Client Secret**.
+    - Go to "APIs & Services" > "Credentials".
+    - Click "+ CREATE CREDENTIALS" and select "OAuth 2.0 Client ID".
+    - For "Application type", choose **Web application**.
+    - Under "Authorized JavaScript origins", add `http://localhost:3000`.
+    - Under "Authorized redirect URIs", add `http://localhost:3000/api/auth/callback/google`.
+    - Click "CREATE" and copy the **Client ID** and **Client Secret**.
 
 ### Step 3: Environment Variable Setup
 
@@ -95,5 +95,5 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 3.  **Set Date Range & Duration:** Choose the start and end dates for your search, and specify the desired meeting duration in minutes.
 4.  **Find Times:** Click the "Find Times" button.
 5.  **View Results:** The application will display:
-    -   A list of suggested available time slots.
-    -   A timeline visualization showing the busy schedules for each selected person, so you can see the basis for the suggestions.
+    - A list of suggested available time slots.
+    - A timeline visualization showing the busy schedules for each selected person, so you can see the basis for the suggestions.

@@ -1,6 +1,6 @@
-'use client'
+"use client";
 
-import React from 'react';
+import React from "react";
 
 // Define the types for the props
 interface BusySlot {
@@ -22,7 +22,11 @@ interface TimelineProps {
   endDate: string;
 }
 
-const Timeline: React.FC<TimelineProps> = ({ calendarData, startDate, endDate }) => {
+const Timeline: React.FC<TimelineProps> = ({
+  calendarData,
+  startDate,
+  endDate,
+}) => {
   const startHour = 9;
   const endHour = 18; // Display up to 6 PM
   const totalHours = endHour - startHour;
@@ -34,7 +38,11 @@ const Timeline: React.FC<TimelineProps> = ({ calendarData, startDate, endDate })
   };
 
   const renderDay = (date: Date) => {
-    const dayLabel = date.toLocaleDateString('ja-JP', { month: 'numeric', day: 'numeric', weekday: 'short' });
+    const dayLabel = date.toLocaleDateString("ja-JP", {
+      month: "numeric",
+      day: "numeric",
+      weekday: "short",
+    });
 
     return (
       <div key={date.toISOString()} className="mb-8">
@@ -60,16 +68,20 @@ const Timeline: React.FC<TimelineProps> = ({ calendarData, startDate, endDate })
           <div className="mt-2 space-y-2">
             {Object.entries(calendarData).map(([email, data]) => (
               <div key={email} className="flex items-center">
-                <div className="w-48 text-sm truncate pr-2" title={email}>{email}</div>
+                <div className="w-48 text-sm truncate pr-2" title={email}>
+                  {email}
+                </div>
                 <div className="relative flex-1 h-8 bg-green-500/20 rounded">
                   {data.busy.map((slot, i) => {
                     const slotStart = new Date(slot.start);
                     const slotEnd = new Date(slot.end);
 
                     // Check if the slot is for the current day (robustly)
-                    if (slotStart.getFullYear() !== date.getFullYear() ||
-                        slotStart.getMonth() !== date.getMonth() ||
-                        slotStart.getDate() !== date.getDate()) {
+                    if (
+                      slotStart.getFullYear() !== date.getFullYear() ||
+                      slotStart.getMonth() !== date.getMonth() ||
+                      slotStart.getDate() !== date.getDate()
+                    ) {
                       return null;
                     }
 
