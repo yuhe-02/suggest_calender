@@ -2,7 +2,7 @@
 
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useState, useEffect, useMemo } from "react";
-import Timeline from "./components/Timeline";
+import Timeline from "../components/Timeline";
 import Select from "react-select";
 
 interface Calendar {
@@ -47,7 +47,7 @@ export default function Home() {
           if (err instanceof Error) {
             setError(err.message);
           } else {
-            setError("Unknown error");
+            setError("unknown error");
           }
         }
       }
@@ -101,7 +101,7 @@ export default function Home() {
       if (err instanceof Error) {
         setError(err.message);
       } else {
-        setError("Unknown error");
+        setError("unknown error");
       }
     } finally {
       setLoading(false);

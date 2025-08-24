@@ -112,7 +112,7 @@ const Timeline: React.FC<TimelineProps> = ({
 
   const renderDays = () => {
     const days = [];
-    let currentDate = new Date(startDate);
+    const currentDate = new Date(startDate);
     const lastDate = new Date(endDate);
 
     while (currentDate <= lastDate) {

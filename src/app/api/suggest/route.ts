@@ -3,9 +3,14 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { google } from "googleapis";
 
+type DateInterval = {
+  start: string; // ISO string
+  end: string; // ISO string
+};
+
 // Function to find available slots
 function findAvailableSlots(
-  busySlots: any[],
+  busySlots: DateInterval[],
   timeMin: string,
   timeMax: string,
   durationMinutes: number,
@@ -69,7 +74,7 @@ function findAvailableSlots(
 export async function POST(request: Request) {
   const session = await getServerSession(authOptions);
 
-  if (!(session as any)?.accessToken) {
+  if (!session?.accessToken) {
     return NextResponse.json(
       { error: "Not authenticated or access token is missing" },
       { status: 401 },
@@ -77,7 +82,7 @@ export async function POST(request: Request) {
   }
 
   const { attendees, startDate, endDate, duration } = await request.json();
-  const accessToken = (session as any).accessToken;
+  const accessToken = session.accessToken;
 
   const allAttendees = [
     session.user?.email,
@@ -114,14 +119,16 @@ export async function POST(request: Request) {
     );
 
     const mergedBusySlots = allBusySlots
-      .reduce((acc: any[], slot) => {
+      .reduce((acc: DateInterval[], slot) => {
         const lastSlot = acc[acc.length - 1];
-        if (lastSlot && new Date(slot.start) < new Date(lastSlot.end)) {
-          if (new Date(slot.end) > new Date(lastSlot.end)) {
-            lastSlot.end = slot.end;
+        if (lastSlot && slot.start && slot.end) {
+          if (new Date(slot.start) < new Date(lastSlot.end)) {
+            if (new Date(slot.end) > new Date(lastSlot.end)) {
+              lastSlot.end = slot.end;
+            }
+          } else {
+            acc.push({ start: slot.start, end: slot.end });
           }
-        } else {
-          acc.push({ start: slot.start, end: slot.end });
         }
         return acc;
       }, [])

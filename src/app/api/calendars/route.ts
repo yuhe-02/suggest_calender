@@ -6,11 +6,11 @@ import { google } from "googleapis";
 export async function GET() {
   const session = await getServerSession(authOptions);
 
-  if (!(session as any)?.accessToken) {
+  if (!session?.accessToken) {
     return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
   }
 
-  const accessToken = (session as any).accessToken;
+  const accessToken = session.accessToken;
   const oAuth2Client = new google.auth.OAuth2();
   oAuth2Client.setCredentials({ access_token: accessToken });
   const calendar = google.calendar({ version: "v3", auth: oAuth2Client });
